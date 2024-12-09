@@ -18,7 +18,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        formattedNumber = phoneNumber.replacingOccurrences(of: " ", with: "")
+        formattedNumber = phoneNumber.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
         let whatsappURL = URL(string: "https://wa.me/\(formattedNumber)")!
         
         if UIApplication.shared.canOpenURL(whatsappURL) {
@@ -32,10 +32,5 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         phoneTextField.endEditing(true)
-    }
-    
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-        formattedNumber = (textField.text?.replacingOccurrences(of: " ", with: ""))!
-        textField.text = formattedNumber
     }
 }
